@@ -1,0 +1,2 @@
+class TrackUrl < ApplicationRecord
+end

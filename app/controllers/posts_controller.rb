@@ -26,10 +26,15 @@ class PostsController < ApplicationController
   end
 
   def shortened_url
+    if Rails.env.production?
+      ip = request.remote_ip
+    else
+      ip =  Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
+    end
+    location = Geocoder.search(ip).first.country
     url = Post.find_by_short_url(params[:id])
-    p (url.created_at < 10.days.before)
+    TrackUrl.create(:post_id=> url.id, :ip_address=>ip,:location=>location)
     url.update_attributes(:count=>url.count+1)
-    # p time_ago_in_words(url.created_at)
     redirect_to url.base_url
   end
 

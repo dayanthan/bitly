@@ -4,11 +4,11 @@
       <dd><%= post.base_url %></dd>
       <dt>Shorten url:</dt>
       <dd onclick ="openUrl('<%=new_url(post.short_url)%>');" class="shortern">
-        <!-- <a href="<%=new_url(post.short_url)%>" id="count" target="_blank"> -->
           <%=new_url(post.short_url)%>
-      <!-- </a> -->
       </dd>
       <dt>Total clicks</dt>
       <dd><%=post.count%></dd>
+      <dt>Top countries:</dt>
+      <dd><%= get_countries(post.id) %></dd>
   </dl>
 <%end%>
