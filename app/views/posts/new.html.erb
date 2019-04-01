@@ -1,0 +1,23 @@
+<%- model_class = Post -%>
+<div class="page-header">
+  <h1>Welcome to short.com</h1>
+</div>
+<div class="url_list">
+	 <%= render :partial => 'form', locals: {:short_url=>nil} %>
+</div>
+
+
+<script type="text/javascript">
+	$( ".post" ).submit(function( event ) {
+		var url=  $("#post_base_url").val();
+	    console.log(url);
+	    var regForUrl = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+		if (!regForUrl.test(url)) {
+		            alert('Please enter the valid URL');
+		            return false;
+		        }
+	    else{
+	    	return true;
+	    }
+    });
+</script>

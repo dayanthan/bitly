@@ -1,0 +1,26 @@
+<%- model_class = Post -%>
+<div class="page-header">
+  <h1>Analytics</h1>
+</div>
+<div class="post_list">
+   <%= render :partial => 'post_list' %>
+</div>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_post_path,
+            :class => 'btn btn-primary' %>
+
+<script type="text/javascript">
+  function openUrl(url) {
+            var win = window.open(url, '_blank');
+            win.focus();
+            setTimeout(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "/posts",
+                    dataType: "script",
+                })
+            }, 2000)
+         }
+
+</script>            

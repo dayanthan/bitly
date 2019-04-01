@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: bitly_development
+  host: localhost
+  username: postgres
+  password: postgres
+  
+production:
+  <<: *default
+  database: bitly_production
+  username: bitly
+  password: <%= ENV['BITLY_DATABASE_PASSWORD'] %>

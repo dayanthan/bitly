@@ -1,0 +1,14 @@
+<% @posts.each do |post| %>
+  <dl class="dl-horizontal list-group">
+      <dt>Original url:</dt>
+      <dd><%= post.base_url %></dd>
+      <dt>Shorten url:</dt>
+      <dd onclick ="openUrl('<%=new_url(post.short_url)%>');" class="shortern">
+        <!-- <a href="<%=new_url(post.short_url)%>" id="count" target="_blank"> -->
+          <%=new_url(post.short_url)%>
+      <!-- </a> -->
+      </dd>
+      <dt>Total clicks</dt>
+      <dd><%=post.count%></dd>
+  </dl>
+<%end%>
