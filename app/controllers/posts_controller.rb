@@ -26,16 +26,20 @@ class PostsController < ApplicationController
   end
 
   def shortened_url
-    if Rails.env.production?
-      ip = request.remote_ip
-    else
-      ip =  Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
-    end
-    location = Geocoder.search(ip).first.country
     url = Post.find_by_short_url(params[:id])
-    TrackUrl.create(:post_id=> url.id, :ip_address=>ip,:location=>location)
-    url.update_attributes(:count=>url.count+1)
-    redirect_to url.base_url
+    if (url.created_at < 30.days.before)
+      render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found
+    else
+        if Rails.env.production?
+          ip = request.remote_ip
+        else
+          ip =  Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
+        end
+      location = Geocoder.search(ip).first.country
+      TrackUrl.create(:post_id=> url.id, :ip_address=>ip,:location=>location)
+      url.update_attributes(:count=>url.count+1)
+      redirect_to url.base_url
+    end
   end
 
   private
